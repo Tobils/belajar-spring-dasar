@@ -11,12 +11,12 @@ public class PrimaryConfiguration {
 
   @Primary()
   @Bean()
-  public Foo foo1() {
+  public Foo fooSatu() {
     return new Foo();
   }
 
   @Bean()
-  public Foo foo2() {
+  public Foo fooDua() {
     return new Foo();
   }
 }

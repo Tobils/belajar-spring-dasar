@@ -1,0 +1,41 @@
+package devtobil.belajarspringdasar;
+
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+
+import devtobil.belajarspringdasar.data.Bar;
+import devtobil.belajarspringdasar.data.Foo;
+import devtobil.belajarspringdasar.data.FooBar;
+
+@Configuration
+public class DependencyInjectionConfiguration {
+
+  @Primary
+  @Bean
+  public Foo foo() {
+    return new Foo();
+  }
+
+  @Bean
+  public Foo fooFirst() {
+    return new Foo();
+  }
+
+  @Bean
+  public Foo fooSecond() {
+    return new Foo();
+  }
+
+  @Bean
+  public Bar bar() {
+    return new Bar();
+  }
+
+  @Bean
+  public FooBar fooBar(@Qualifier("fooSecond") Foo foo, Bar bar) {
+    return new FooBar(foo, bar);
+  }
+
+}
