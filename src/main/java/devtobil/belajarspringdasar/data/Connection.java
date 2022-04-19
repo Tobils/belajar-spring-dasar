@@ -12,7 +12,7 @@ public class Connection implements InitializingBean, DisposableBean {
   @Override
   public void destroy() throws Exception {
     // TODO Auto-generated method stub
-    logger.info("Connection is cloed ...");
+    logger.info("Connection is closed ...");
 
   }
 

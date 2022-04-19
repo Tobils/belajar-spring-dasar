@@ -142,7 +142,7 @@ saat membuat object sering kali antar satu object mmembtutuhkan object yang lain
 - selanjutnya registratsikan dengan bean CustomScopeConfigurer
 ```
 
-## Lifecycle
+## Life Cycle
 
 ```
 - spring memliki alur hidup dan kita bisa berinteraksi dengan alur tersebut.
@@ -160,4 +160,94 @@ saat membuat object sering kali antar satu object mmembtutuhkan object yang lain
 13:26:45.947 [main] DEBUG org.springframework.context.annotation.AnnotationConfigApplicationContext - Closing org.springframework.context.annotation.AnnotationConfigApplicationContext@703580bf, started on Tue Apr 19 13:26:45 WIB 2022
 13:26:45.948 [main] INFO devtobil.belajarspringdasar.data.Connection - Connection is cloed ...
 
+```
+
+## Life Cycle Annotation
+
+```
+selain menggunakan interface InitializingBean dan DispossableBean, kita juga bisa menggunakan annotation untuk mendaftarkan callback ethod untuk lifecycle.
+- initMethod() digunakan untuk meregistrasikan method mana yg akan dipanggil ketika bean selesai dibuat.
+- destroyMethod() digunakan untuk meregistrasikan method mana yg akan dipanggil ketika bean akan dihancurkan.
+- method harus tanpa parameter, return value tidak akan dihiraukan, pakai void ajah.
+
+- logger output
+17:49:49.295 [main] INFO devtobil.belajarspringdasar.data.Server - Start Server
+17:49:49.331 [main] DEBUG org.springframework.context.annotation.AnnotationConfigApplicationContext - Closing org.springframework.context.annotation.AnnotationConfigApplicationContext@2e4b8173, started on Tue Apr 19 17:49:49 WIB 2022
+17:49:49.332 [main] INFO devtobil.belajarspringdasar.data.Server - Stop Server
+
+- annotations lainnya @PostConstruct dan @PreDestroy
+- selain menggunakan @Bean kita bisa juga menggunakan dua anotasi di atas
+- @PostConstruct merupakan method yang ditandai harus dipanggil ketika Bean selesai dibuat
+- @PreDestroy merupakan method yang ditandai harus dipanggil ketika Bean akan dihancurkan
+-  jika sudah menggunakan annotation ini gak perlu mention di @Bean
+- logger output
+17:56:32.122 [main] INFO devtobil.belajarspringdasar.data.Server - Start Server
+17:56:32.158 [main] DEBUG org.springframework.context.annotation.AnnotationConfigApplicationContext - Closing org.springframework.context.annotation.AnnotationConfigApplicationContext@2e4b8173, started on Tue Apr 19 17:56:31 WIB 2022
+17:56:32.159 [main] INFO devtobil.belajarspringdasar.data.Server - Stop Server
+
+```
+
+## Import
+
+```
+- biasanya membuat lebih dari 1 configuration class
+- bisa menggunakan @Import annotation
+- bisa import lebih dari 1 configuration
+```
+
+## Component Scan
+
+```
+- semakin besar aplikasi semakin banyak config yg harus di import
+- component scan bisa digunakan untuk handle configuration dan akan scan basepackage
+```
+
+## Component
+
+```
+- membuat bean dengan menambahkan @Bean pada method
+- secara otomatis kita bisa setup sebuah class dengan @Component untuk membuat bean untuk class tersebut
+- @Component mendukung pembuatan 1 buah bean
+- saat menggunakan @Component, nama bean akan dibuatkan secara otomatis
+- jika menggunakan @ComponentScan, nama bean akan menjadi camelCase, contoh ProductWeb jadi productWeb
+- jika menggunakan @Import, secara otmatis nama bean akan menjadi ClassName.class.getName()
+- namun jika ingin membuat nama berbeda, bisa juga menggunakan @Component(value="namaBean)
+- annotation lain masih bisa digunakan di @Component
+```
+
+## Constructor Base Dependency Injection
+
+```
+- untuk melakukan dependency injection di @Bean, kita bisa menggunakan parameter di methodnya
+- secara otomatis spring akan memilih bean mana yg cocok
+- bagaimana jika menggunakan @Component ?
+  - menggunakan constructor parameter, hanya mendukung 1 constructor
+
+- bagaimana jika harus multiple contructor
+  - menggunakan annotation @Autowired
+```
+
+## Setter-based Dependency Injection
+
+```
+- khusus case ini harus menggunakan annotation @Autowired pada setter method nya
+- setter-based DI bisa digabung dengan constructor-based DI
+```
+
+## Field-based Dependency Injection
+
+```
+- menambahkan @Autowired pada field
+- @Autowired dapat digabungkan dengan setter-based DI dan constructor-based DI
+- tidak direkomendasikan menggunakan
+```
+
+## Qualifier
+
+```
+- spring akan bingung jika ada bean dengan object yg sama
+- didalam component pun kita bisa set qualifier
+
+- notes:
+  - jika lombok annotations tidak berfungsi pada vscode, coba install extension lombok
 ```

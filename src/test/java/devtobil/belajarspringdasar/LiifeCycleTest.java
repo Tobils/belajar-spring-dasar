@@ -8,6 +8,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import devtobil.belajarspringdasar.data.Connection;
+import devtobil.belajarspringdasar.data.Server;
 
 public class LiifeCycleTest {
 
@@ -26,6 +27,14 @@ public class LiifeCycleTest {
   @Test
   public void testConnection() {
     Connection connection = context.getBean(Connection.class);
+  }
+
+  /**
+   * test life cycle dengan annotation pada class Server
+   */
+  @Test
+  public void testServer() {
+    Server server = context.getBean(Server.class);
   }
 
 }
