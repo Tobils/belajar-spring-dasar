@@ -280,3 +280,15 @@ selain menggunakan interface InitializingBean dan DispossableBean, kita juga bis
 - hati2 duplicate bean saat implmentasi interface
 
 ```
+
+## Bean Factory
+
+```
+- ApplicationContext adalah interface turunan dari BeanFactory
+- BeanFactory merupakan kontrak untuk management bean di spring
+
+- Listable Bean Factory
+  - BeanFactory hanya bisa digunakan untuk mengakses single bean
+  - jika ingin mengakses beberapa bean bisa menggunakan Listable Bean Factory
+  - Application Context juga merupakan turunan dari Listable Bean Factory
+```
