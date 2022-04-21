@@ -251,3 +251,32 @@ selain menggunakan interface InitializingBean dan DispossableBean, kita juga bis
 - notes:
   - jika lombok annotations tidak berfungsi pada vscode, coba install extension lombok
 ```
+
+## Optional Dependency
+
+```
+- by default semua dependency itu wajib
+- jika spring tidak menemukan bean yg dibutuhkan maka akan terjadi error
+- namun jika kita ingin membuat sebuah dependency itu optional, bisa kita warpping dengan java.util.Optional<T>
+- Optional<T> dapat kita gunakan pada @Bean, atayupun @Component
+
+- selain menggunakan Optional<T>, kita bisa juga menggunakan ObjectProvider<T>
+- yang membedakan adalah, jika ternyata bean nya lebih dari satu, ObjectProvider<T> dapat digunakan untuk mengambil semuanya.
+- disarankan menggunakan Optional<T>
+```
+
+## Factory Bean
+
+```
+- kadang kala ada kasus  class bukan milik kita melainkan third party
+- jadinya agak sulit buat nambahin anotation di class tsb
+- caranya bisa kita tambahkan @Bean atau @Component tapi perlu wrap pada class Factory Bean
+```
+
+## Inheritance
+
+```
+- saat mengakses bean kita bisa mengakses tipe class bean tsb atau bisa juga dengan parent/interface class bean
+- hati2 duplicate bean saat implmentasi interface
+
+```

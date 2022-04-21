@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import devtobil.belajarspringdasar.data.MultiFoo;
 import devtobil.belajarspringdasar.repository.CategoryRepository;
 import devtobil.belajarspringdasar.repository.CustomerRepository;
 import devtobil.belajarspringdasar.repository.ProductRepository;
@@ -57,5 +58,11 @@ public class ComponentTest {
 
     Assertions.assertSame(normalCustomerRepository, customerService.getNormalCustomerRepository());
     Assertions.assertSame(premiumCustomerRepository, customerService.getPremiumCustomerRepository());
+  }
+
+  @Test
+  public void testObjectProvider() {
+    MultiFoo multiFoo = context.getBean(MultiFoo.class);
+    Assertions.assertEquals(3, multiFoo.getFoos().size());
   }
 }
