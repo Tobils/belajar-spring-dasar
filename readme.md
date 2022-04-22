@@ -291,4 +291,32 @@ selain menggunakan interface InitializingBean dan DispossableBean, kita juga bis
   - BeanFactory hanya bisa digunakan untuk mengakses single bean
   - jika ingin mengakses beberapa bean bisa menggunakan Listable Bean Factory
   - Application Context juga merupakan turunan dari Listable Bean Factory
+
+-- output log
+BeanFactoryTest.java
+[devtobil.belajarspringdasar.data.Foo@79dc5318, devtobil.belajarspringdasar.data.Foo@8e50104, devtobil.
+belajarspringdasar.data.Foo@37e4d7bb]
+{foo1=devtobil.belajarspringdasar.data.Foo@79dc5318, foo2=devtobil.belajarspringdasar.data.Foo@8e50104, foo3=devtobil.belajarspringdasar.data.Foo@37e4d7bb}
+
+```
+
+## Bean Post Processor
+
+```
+- Bean Post Processor kurang lebih seperti midleware yang diakses sebelum bean di initialized dan setelah bean di initialized
+- karena sangat flexible, bahkan Bean Post Processor bisa memodifikasi hasil object Bean
+
+-- Bean ID Generator
+  - misal kita akan coba membuat id unique untuk bean
+  - membuat interface dengan nama IdAware, lalu memiliki method setId(string)
+  - kita akan membuat Bean Post Processor, dimana jika bean nya implements IdAware, kita akan setId(string) nya menggunakan UUID
+```
+
+## Ordered
+
+```
+- Saat kita membuat Bean Post Processor, kita bisa membuat lebih dari satu
+- Kadang ada kasus saat mmembuat beberapa Bean Post Processor, kita ingin membuat yang berurutan
+- sayangnya sacaradefault, Spring tidak menjamin urutan eksekusi
+- agar kita bisa menentukan urutannya, kita bisa menggunakan interface ordered
 ```
