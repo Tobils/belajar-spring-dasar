@@ -320,3 +320,60 @@ belajarspringdasar.data.Foo@37e4d7bb]
 - sayangnya sacaradefault, Spring tidak menjamin urutan eksekusi
 - agar kita bisa menentukan urutannya, kita bisa menggunakan interface ordered
 ```
+
+## Aware
+
+```
+- spring memiliki sebuah interface bernama aware
+- aware merupakan sebuah super interface yang digunakan oleh semua Aware interface
+- aware digunakan sebagai penanda agar spring melakukan injection object yang kita butuhkan
+- mirip dengan yang sudah dilakukan dengan Bean Post Processor
+- namun kali ini tidak perlu membuat bean post processor secra manual
+```
+
+## Bean Factory Post Processor
+
+```
+- by default mungkin hampir tidak pernah sama sekali membuat Application Context secara manual
+- namun kadang kala perlu membuat untuk kebutuhan internal
+- spring merekomendasikan bean factory post processor
+```
+
+## Event Listener
+
+```
+- spring memiliki feature event-listener yang bisa kita gunakan untuk berkomunikasi antar class
+- Event di spring merupakan Object turunan dari ApplicationEvent, sedangkan Listener di spring merupakan object turunan dari ApplicationListener
+- untuk mengirim event ke listener, kita bisa menggunakan object ApplicationEventPublisher yang merupakan super interface dari ApplicationContext
+- bisa juga menggunakan ApplicationEventPublisherAware untuk mendapatkan ApplicationEventPublisher
+- kenapa butuh event listener padahal bisa ajah kita masukan langsung ?
+  - karena kitta bisa setup berbagai jenis lietener dari class yang berbeda yang membutuhkan sehingga akan lebih mudah.
+-- contoh output log
+06:27:05.205 [main] INFO devtobil.belajarspringdasar.service.UserService - set ApplicationEventPublisher
+06:27:05.233 [main] INFO devtobil.belajarspringdasar.listener.LoginSUccessListener - Success login for user User(username=tobils)
+
+```
+
+## Event Listener Annotation
+
+```
+- selain menggunakan interface ApplicationListener, kita bisa menggunakan annotation untuk membuat listener dan ini lebih flexible
+- dan agar 1 bean bisa mendengarkan berbagai event tidak hanya 1 event
+- kita bisa menggunakan @EventListener
+- cara kerja ?
+  - menggunakan bean post processor
+  - spring akan registrasi bean baru dan akan detect method dengan anotasi @EventListener
+  - jika terdapat bean baru dengan @EventListener maka akan dibuat bean baru
+```
+
+## Spring boot Application
+
+```
+- sebelum nya selalu menggunakan aplicationcontext secara manual agar paham alurnya bagaimana springboot application bisa berjalan secara otomatis
+- ganti @Configuration utama dnegan @SpringBootApplication
+- @SpringBootApplication sendiri berisi gabungan @configuration dan banyak hal lain seperti @ComponentScan
+
+- @SpringApplication dapat digunakan untuk menggantikan ApplicationContext
+- @SpringBootTest digunakan untuk unit test secara otomatis dan tidak perlu ambil bean secara manual
+  - data menggunakan DI secara langsung menggunakan @Autowired
+```
