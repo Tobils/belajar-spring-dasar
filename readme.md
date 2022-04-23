@@ -377,3 +377,110 @@ belajarspringdasar.data.Foo@37e4d7bb]
 - @SpringBootTest digunakan untuk unit test secara otomatis dan tidak perlu ambil bean secara manual
   - data menggunakan DI secara langsung menggunakan @Autowired
 ```
+
+## Startup Failure
+
+```
+- spring memiliki feature failure analyzer
+- FailureAnalyzer digunakan untuk melakukan analisa ketika terjadi error startup yang menyebabkan aplikasi tidak mau berjalan
+- spring sudah menydeiakan classs implementasi yg dapat kita gunakan
+
+-- output
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2022-04-23 12:48:49.487 ERROR 35052 --- [           main] o.s.b.d.LoggingFailureAnalysisReporter   :
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Parameter 0 of method foo in devtobil.belajarspringdasar.application.FooApplication required a bean of type 'devtobil.belajarspringdasar.data.Bar' that could not be found.
+2
+
+Action:
+
+Consider defining a bean of type 'devtobil.belajarspringdasar.data.Bar' in your configuration.
+
+```
+
+## Banner
+
+```
+- springboot memiliki fitur banner, dimana saat apliaksi dijalankan kita bisa menuliskan banner di console
+- secara default fitur banner ini akan menyala dan akan mencari tulisan banner di class patch dengan nama banner.txt
+
+- salah satu web untuk embuat banner : https://bagill.com/ascii-sig.php
+- jika tidak ketemu maka spring secara otomatis akan menampilkan tulisan springboot pada aplikasi
+-- default banner
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v2.6.6)
+
+-- custom banner: copy paste character dibawah ini pada folder properties, kemudian buat file banner.txt
+  __| | _____   __    | |_ ___ | |__ (_) |
+ / _` |/ _ \ \ / /____| __/ _ \| '_ \| | |
+| (_| |  __/\ V /_____| || (_) | |_) | | |
+ \__,_|\___| \_/       \__\___/|_.__/|_|_|
+ :: Spring Boot ::                (v2.6.6)
+```
+
+## Customizing Spring Application
+
+```
+- kadang kala kita perlu melakukan pengaturan pada spring application sebelum application contex-nya dibuat
+- kita bisa menggunakan SpringApplication atau SpringApplicationBuilder
+- check FooApplication
+```
+
+## Spring Application Event
+
+```
+- sama hal nya event listener yang sudah dipelajari
+- di springBoot ketika aplikasi berjalan banyak sekali event yang dikirim
+- kita bisa membuat listener untuk mendapatkan event tsb
+
+-- menambah listener
+  - beberapa event di spring boot application event di trigger bahkan sebelum spring membuat application context
+  - oleh karena itu jika kita menggunakan bean, bisa saja beberpa listener tidak akan dipanggil karena bean nya belum dibuat
+  - agar lebih aman kita bisa menambahkan listener ketika membuat SpringApplication
+
+  -- output log example
+  13:21:36.699 [main] INFO devtobil.belajarspringdasar.listener.AppStartingListener - [listener] Application is starting
+```
+
+## Command Line Runner
+
+```
+- kadang kala kita perlu menambahkan argument pada main method
+- SpringApplication dapat secara otomatis mengirikan argument tersebut ke Bean yang kita buat
+- kita hanya butuh membuat bean dari ComandLineRunner
+- COmmandLineRunner secara otomatis akan dijalankan saat SpringApplication berjalan
+```
+
+## Application Runner
+
+```
+- Selain CommandLineRunner Springboot menyediakan fiture ApplicationRunner
+- penggunannya sama saja namun, argument nya sudah di wrapping dalam object ApplicationRunner
+- menariknya, APplicationRunner memiliki fitur parsing command line argument
+```
+
+## Spring Boot Plugin
+
+```
+- plugin ini bisa digunakan untuk mempermudah kita saat menjalankan aplikasi springboot
+- contoh : mvn spring-boot:run
+- install maven: sudo apt install maven
+- untuk menjalan spring boot aplikasi kita harus memastikan hanya ada 1 main class
+-- Distribution File
+  - plugin ini mendeteksi main class pada project, lalu membundle aplikasi kita beserta dependecy yang dibutuhkan dalam 1 file jar
+  - pastikan hanya ada 1 main class
+  - command: mvn package
+  - secara otomatis akan terbuat single jar application.
+  - untuk runnning tinggal : java --jar path-jar-file
+```

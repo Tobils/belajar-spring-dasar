@@ -1,4 +1,4 @@
-package devtobil.belajarspringdasar;
+package devtobil.belajarspringdasar.application;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
